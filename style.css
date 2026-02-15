@@ -5,119 +5,98 @@
     box-sizing: border-box;
 }
 
-/* Body & HTML */
 body, html {
     height: 100%;
     width: 100%;
     overflow: hidden;
 }
 
-/* Background layer */
+/* Background layer - শুরুতে Blur কিছুটা কমানো হয়েছে */
 .bg-image {
     position: fixed;
     inset: 0;
     z-index: -1;
     background: url('background.jpg') center / cover no-repeat;
-
-    /* Reduced blur */
-    filter: blur(6px);
-    transition: filter 1s cubic-bezier(0.4, 0, 0.2, 1);
+    filter: blur(6px); /* আগে ১৫ পিক্সেল ছিল, এখন ৬ পিক্সেল করা হয়েছে */
+    transition: filter 1.5s ease-in-out;
 }
 
-/* Blur remove */
+/* Yes ক্লিক করলে Blur সম্পূর্ণ চলে যাবে */
 .bg-clear {
     filter: blur(0) !important;
 }
 
-/* Layout */
 body {
     display: flex;
     justify-content: center;
-    align-items: flex-end;
-    padding-bottom: 10vh;
+    align-items: center;
     font-family: 'Comic Sans MS', cursive, sans-serif;
     background: #000;
-    touch-action: manipulation;
+    padding: 15px;
 }
 
-/* Glass container */
+/* Glassmorphism Container */
 .container {
     text-align: center;
-    width: 90%;
-    max-width: 400px;
-    background: rgba(255, 255, 255, 0.12);
-    backdrop-filter: blur(8px);
-    padding: 30px 20px;
-    border-radius: 25px;
+    width: 100%;
+    max-width: 450px;
+    background: rgba(255, 255, 255, 0.08); /* গ্লাস ইফেক্ট */
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    padding: 40px 20px;
+    border-radius: 30px;
     border: 1px solid rgba(255, 255, 255, 0.2);
-    box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-    transition: all 0.6s ease-in-out;
+    box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+    transition: all 0.5s ease;
 }
 
-/* Title */
-h1 {
-    color: #fff;
-    font-size: 1.8rem;
-    margin-bottom: 25px;
-    text-shadow: 2px 4px 10px rgba(0,0,0,0.9);
-    line-height: 1.3;
-}
-
-/* Image */
+/* Responsive Large Image */
 img {
-    width: 160px;
+    width: 100%; /* ফোনে সম্পূর্ণ চওড়া হবে */
+    max-width: 380px; /* পিসিতে একটি নির্দিষ্ট সীমার মধ্যে থাকবে */
     height: auto;
     border-radius: 20px;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
 }
 
-/* Buttons wrapper */
+h1 {
+    color: #fff;
+    font-size: clamp(1.5rem, 6vw, 2.2rem);
+    margin-bottom: 30px;
+    text-shadow: 2px 4px 10px rgba(0,0,0,0.8);
+}
+
 .buttons {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 15px;
-    min-height: 120px;
 }
 
-/* Buttons */
 button {
-    padding: 15px 40px;
+    padding: 16px 40px;
     font-size: 1.2rem;
     font-weight: bold;
     border: none;
     border-radius: 50px;
     cursor: pointer;
-    width: 220px;
-    box-shadow: 0 8px 15px rgba(0,0,0,0.3);
-    transition: transform 0.2s ease;
+    width: 85%;
+    max-width: 280px;
+    box-shadow: 0 8px 15px rgba(0,0,0,0.4);
+    transition: transform 0.2s ease, background 0.3s ease;
 }
 
-button:active {
-    transform: scale(0.95);
-}
+#yes-btn { background: #4caf50; color: #fff; }
+#no-btn { background: #f44336; color: #fff; }
 
-#yes-btn {
-    background: #4caf50;
-    color: #fff;
-    z-index: 10;
-}
-
-#no-btn {
-    background: #f44336;
-    color: #fff;
-}
-
-/* Small phones */
-@media (max-height: 700px) {
-    body {
-        padding-bottom: 5vh;
+/* Desktop view: বাটন পাশাপাশি */
+@media (min-width: 768px) {
+    .buttons {
+        flex-direction: row;
+        justify-content: center;
     }
-    .container {
-        padding: 20px 15px;
-    }
-    img {
-        width: 130px;
+    button {
+        width: auto;
     }
 }
-
